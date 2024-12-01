@@ -1,5 +1,8 @@
 package MyStack;
 
+import java.util.EmptyStackException;
+import java.util.Stack;
+
 public class MyStack {
     private int[] items;
     private int top;
@@ -10,14 +13,35 @@ public class MyStack {
         this.top=0;
     }
     public void push(int value){
-        if(this.top==size){
-            System.out.println("Stack is full");
-        }
+        if(this.top==size) throw new StackOverflowError();  //Stack Overflow
+
         this.items[top]=value;
         this.top++;
     }
+
+    public int pop() {
+        if (top == 0) throw new EmptyStackException(); //Stack Underflow
+
+        this.top--;
+        int value = items[top];
+        items[top] = 0;
+        return value;
+    }
+
+    public int peek(){
+        if (top == 0){
+            System.out.println("Stack is empty");
+            return -1;
+        }
+        return items[top-1];
+    }
     public int size(){
         return top;
+    }
+
+    public boolean isEmpty(){
+        if(size()==0) return true;
+        else return false;
     }
     public  String toString(){
         StringBuilder sb= new StringBuilder();
